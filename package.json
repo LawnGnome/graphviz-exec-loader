@@ -1,0 +1,32 @@
+{
+  "name": "graphviz-exec-loader",
+  "version": "0.1.0",
+  "description": "Webpack loader for Graphviz files that invokes the Graphviz binaries directly",
+  "main": "index",
+  "repository": "https://github.com/LawnGnome/graphviz-exec-loader",
+  "author": "Adam Harvey",
+  "license": "MIT",
+  "keywords": [
+    "webpack",
+    "graphviz",
+    "loader",
+    "dot"
+  ],
+  "files": [
+    "index.*"
+  ],
+  "scripts": {
+    "prepare": "babel index.mjs --out-file index.js"
+  },
+  "dependencies": {
+    "datauri": "^1.1.0"
+  },
+  "peerDependencies": {
+    "webpack": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0"
+  }
+}
