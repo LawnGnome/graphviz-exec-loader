@@ -1,6 +1,6 @@
 {
   "name": "graphviz-exec-loader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Webpack loader for Graphviz files that invokes the Graphviz binaries directly",
   "main": "index",
   "repository": "https://github.com/LawnGnome/graphviz-exec-loader",
@@ -20,9 +20,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "datauri": "^1.1.0"
-  },
-  "peerDependencies": {
+    "datauri": "^1.1.0",
     "webpack": "^3.1.2"
   },
   "devDependencies": {
@@ -33,7 +31,6 @@
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
     "regenerator-runtime": "^0.13.1",
-    "schema-utils": "^1.0.0",
-    "webpack": "^3.1.2"
+    "schema-utils": "^1.0.0"
   }
 }
