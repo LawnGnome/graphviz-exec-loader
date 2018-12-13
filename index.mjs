@@ -1,6 +1,10 @@
-import { spawn } from "child_process";
+import {
+  spawn
+} from "child_process";
 import DataURI from "datauri";
-import { getOptions } from "loader-utils";
+import {
+  getOptions
+} from "loader-utils";
 import validateOptions from "schema-utils";
 
 const schema = {
@@ -35,6 +39,6 @@ export default function loader(source) {
       this.emitError(`${options.command} exited with return code ${code}`);
     }
   });
-  proc.stdout.on("data", buf => (buffer += buf.toString()));
+  proc.stdout.on("data", buf => buffer += buf.toString());
   proc.stdin.end(source);
 }
