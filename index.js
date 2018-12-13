@@ -33,18 +33,20 @@ function loader(source) {
   const options = (0, _loaderUtils.getOptions)(this);
   (0, _schemaUtils.default)(schema, options, "Graphviz loader");
   const format = options.format || "svg";
-  let buffer = "";
+  let stderr = "";
+  let stdout = "";
   const proc = (0, _child_process.spawn)(options.command, [`-T${format}`]);
   proc.on("error", e => callback(e, null));
   proc.on("exit", code => {
     if (code === 0) {
       const du = new _datauri.default();
-      du.format(`.${format}`, buffer);
+      du.format(`.${format}`, stdout);
       callback(null, `module.exports = ${JSON.stringify(du.content)}`);
     } else {
-      callback(new Error(`${options.command} exited with return code ${code}`), null);
+      callback(new Error(`${options.command} exited with return code ${code}, and error:\n\n${stderr}`), null);
     }
   });
-  proc.stdout.on("data", buf => buffer += buf.toString());
+  proc.stdout.on("data", buf => stdout += buf.toString());
+  proc.stderr.on("data", buf => stderr += buf.toString());
   proc.stdin.end(source);
 }

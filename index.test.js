@@ -12,8 +12,7 @@ class MockLoaderContext {
         loader.call(
           {
             query: this.query,
-            async: () => (err, ...values) => resolve({ err, values }),
-            emitError: err => resolve({ err, values: null })
+            async: () => (err, values) => resolve({ err, values })
           },
           source
         );
@@ -44,7 +43,9 @@ test("invalid format", async () => {
 
   const { err, values } = await ctx.invokeLoader(loader, "graph G {}");
 
-  expect(err).toMatch("dot exited with return code");
+  expect(err.message).toMatch(
+    /dot exited with return code 1[\s\S]+Format: "bogus" not recognized/
+  );
   expect(values).toBeNull();
 });
 
@@ -56,7 +57,9 @@ test("invalid input", async () => {
 
   const { err, values } = await ctx.invokeLoader(loader, "}");
 
-  expect(err).toMatch("dot exited with return code");
+  expect(err.message).toMatch(
+    /dot exited with return code 1[\s\S]+syntax error/
+  );
   expect(values).toBeNull();
 });
 
@@ -80,6 +83,5 @@ test("success", async () => {
   const { err, values } = await ctx.invokeLoader(loader, "graph G {}");
 
   expect(err).toBeNull();
-  expect(values).toHaveLength(1);
-  expect(values[0]).toMatch("data:image/svg+xml");
+  expect(values).toMatch("data:image/svg+xml");
 });
