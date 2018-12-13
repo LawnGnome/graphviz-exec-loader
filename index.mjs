@@ -29,14 +29,14 @@ export default function loader(source) {
 
   let buffer = "";
   const proc = spawn(options.command, [`-T${format}`]);
-  proc.on("error", e => this.emitError(e));
+  proc.on("error", e => callback(e, null));
   proc.on("exit", code => {
     if (code === 0) {
       const du = new DataURI();
       du.format(`.${format}`, buffer);
       callback(null, `module.exports = ${JSON.stringify(du.content)}`);
     } else {
-      this.emitError(`${options.command} exited with return code ${code}`);
+      callback(new Error(`${options.command} exited with return code ${code}`), null);
     }
   });
   proc.stdout.on("data", buf => buffer += buf.toString());
